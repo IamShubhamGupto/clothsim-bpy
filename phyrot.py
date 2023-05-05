@@ -40,7 +40,6 @@ for i, v in enumerate(cloth_mesh.vertices):
 # print(type(group))
 cloth_mod.settings.quality = 5  # Set the cloth quality (higher values are more accurate but slower)
 cloth_mod.settings.time_scale = 0.5  # Set the time scale of the simulation
-cloth_mod.settings.use_gravity = False
 
 # Add a hook modifier to suspend the object
 hook_obj = bpy.data.objects.new('Hook', None)
