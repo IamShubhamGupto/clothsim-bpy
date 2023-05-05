@@ -1,0 +1,29 @@
+name: blender
+channels:
+  - defaults
+dependencies:
+  - bzip2=1.0.8
+  - ca-certificates=2023.01.10
+  - libffi=3.4.2
+  - ncurses=6.4
+  - openssl=1.1.1t
+  - pip=23.0.1
+  - python=3.10.11
+  - readline=8.2
+  - setuptools=66.0.0
+  - sqlite=3.41.2
+  - tk=8.6.12
+  - tzdata=2023c
+  - wheel=0.38.4
+  - xz=5.2.10
+  - zlib=1.2.13
+  - pip:
+    - bpy==3.5.0
+    - certifi==2022.12.7
+    - charset-normalizer==3.1.0
+    - cython==0.29.34
+    - idna==3.4
+    - numpy==1.24.3
+    - requests==2.29.0
+    - urllib3==1.26.15
+    - zstandard==0.21.0
