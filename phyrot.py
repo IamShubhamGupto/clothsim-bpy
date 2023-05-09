@@ -3,6 +3,29 @@ import bpy
 import os
 from mathutils import Vector
 
+def new_plane(mylocation, mysize, myname):
+    bpy.ops.mesh.primitive_plane_add(
+        size=mysize,
+        calc_uvs=True,
+        enter_editmode=False,
+        align='WORLD',
+        location=mylocation,
+        rotation=(0, 0, 0),
+        scale=(0, 0, 0))
+    current_name = bpy.context.selected_objects[0].name
+    plane = bpy.data.objects[current_name]
+    plane.name = myname
+    plane.data.name = myname + "_mesh"
+    return
+
+new_plane((0,0,-4), 10, "MyFloor")
+plane = bpy.data.objects['MyFloor']
+# Add a collision modifier to the plane object
+bpy.ops.object.modifier_add(type='COLLISION')
+collision_mod = plane.modifiers[-1]
+collision_mod.name = 'FloorCollision'
+# collision_mod.object = plane
+
 # Get the cube object
 cube_obj = bpy.data.objects['Cube']
 
@@ -37,6 +60,10 @@ group = cloth_obj.vertex_groups.new(name=group_name)
 for i, v in enumerate(cloth_mesh.vertices):
     group.add([i], 1.0, 'REPLACE')
 
+
+# collision_mod = cloth_obj.modifiers.new(name='Collision', type='COLLISION')
+# collision_mod.settings.collision_objects = [plane]
+
 # print(type(group))
 cloth_mod.settings.quality = 5  # Set the cloth quality (higher values are more accurate but slower)
 cloth_mod.settings.time_scale = 0.5  # Set the time scale of the simulation
@@ -54,6 +81,21 @@ for i, v in enumerate(cloth_mesh.vertices):
         group_indices.append(v.index)
 hook_mod.vertex_indices_set(group_indices)
 hook_mod.object = hook_obj
+
+# # Add collision to the cloth object
+# bpy.ops.object.modifier_add(type='COLLISION')
+# cloth_collision_mod = cloth_obj.modifiers[-1]
+# cloth_collision_mod.name = 'ClothCollision'
+# cloth_collision_mod.object = plane
+
+# Set up camera
+cam = bpy.data.cameras.new(name="Camera")
+cam_obj = bpy.data.objects.new(name="Camera", object_data=cam)
+cam_obj.location = (0, -3, 2) # Update camera location
+cam_obj.rotation_mode = 'XYZ' # Set rotation mode to XYZ
+cam_obj.rotation_euler = (0.6, 0, 0)  # Update camera rotation (in radians)
+bpy.context.scene.camera = cam_obj
+bpy.data.collections["Collection"].objects.link(cam_obj)
 
 # Create a keyframe animation of the object's rotation
 num_frames = 100  # Set the number of frames in the animation
