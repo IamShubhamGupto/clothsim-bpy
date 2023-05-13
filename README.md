@@ -4,7 +4,7 @@ Simulate cloth object meshes and other demonstrations using Python-Blender API `
 
 ## Installation
 ```
-conda env create -f environment.yaml
+conda env create -f environment.yml
 conda activate blender
 ```
 
