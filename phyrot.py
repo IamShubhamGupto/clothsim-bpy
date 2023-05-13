@@ -37,11 +37,12 @@ cube_obj.select_set(True)
 bpy.ops.object.delete(use_global=False)
 
 # Load the .obj file
-filepath = "/Users/shubham/Downloads/reconstruction-dan-001/frame0001/mesh/mesh_000000481.obj"
+# filepath = "/Users/shubham/Downloads/reconstruction-dan-001/frame0001/mesh/mesh_000000481.obj"
+filepath = "/Users/shubham/Downloads/cleaned0.obj"
 bpy.ops.import_scene.obj(filepath=filepath)
 
 # Get the imported mesh object
-cloth_obj = bpy.data.objects["mesh_000000481"]
+cloth_obj = bpy.data.objects["cleaned0"]
 bpy.ops.object.select_all(action='DESELECT')
 cloth_obj.select_set(True)
 bpy.context.view_layer.objects.active = cloth_obj
@@ -59,10 +60,6 @@ group = cloth_obj.vertex_groups.new(name=group_name)
 # Add all vertices to the group
 for i, v in enumerate(cloth_mesh.vertices):
     group.add([i], 1.0, 'REPLACE')
-
-
-# collision_mod = cloth_obj.modifiers.new(name='Collision', type='COLLISION')
-# collision_mod.settings.collision_objects = [plane]
 
 # print(type(group))
 cloth_mod.settings.quality = 5  # Set the cloth quality (higher values are more accurate but slower)
@@ -115,7 +112,7 @@ output_folder = "output/"
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
-output_path = os.path.join(output_folder, 'animation_spin.mp4')
+output_path = os.path.join(output_folder, 'animation_spin0.mp4')
 
 # Set render settings
 bpy.context.scene.render.engine = 'CYCLES'
